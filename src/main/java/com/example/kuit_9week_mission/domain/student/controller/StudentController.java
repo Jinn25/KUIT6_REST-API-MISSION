@@ -1,14 +1,13 @@
 package com.example.kuit_9week_mission.domain.student.controller;
 
 import com.example.kuit_9week_mission.domain.club.service.ClubMemberService;
+import com.example.kuit_9week_mission.domain.student.dto.request.UpdateStudentNameRequest;
 import com.example.kuit_9week_mission.domain.student.dto.response.StudentInfoResponse;
 import com.example.kuit_9week_mission.domain.student.service.StudentService;
 import com.example.kuit_9week_mission.global.common.auth.StudentId;
 import com.example.kuit_9week_mission.global.common.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/students")
@@ -25,4 +24,12 @@ public class StudentController {
         return ApiResponse.ok(studentService.getStudentInfo(studentId));
     }
 
+    @PatchMapping("/me")
+    public ApiResponse<?> updateName(
+            @StudentId Long studentId,
+            @RequestBody UpdateStudentNameRequest request
+    ) {
+        studentService.updateStudentName(studentId, request.name());
+        return ApiResponse.ok(null);
+    }
 }

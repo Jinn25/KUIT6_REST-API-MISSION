@@ -23,4 +23,10 @@ public class StudentService {
     }
 
     // TODO 4: 현재 로그인한 학생 이름 수정하기(토큰 필요) - PATCH
+    public void updateStudentName(Long studentId, String newName) {
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND));
+
+        studentRepository.updateName(studentId, newName);
+    }
 }
